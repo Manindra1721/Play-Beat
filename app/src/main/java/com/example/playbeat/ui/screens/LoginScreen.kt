@@ -22,21 +22,20 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.text.font.FontWeight
 import com.example.playbeat.R
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
-import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import androidx.compose.ui.text.input.KeyboardType
 
 @Composable
 fun LoginScreen(onLoginSuccess: () -> Unit, onSignUp: () -> Unit) {
@@ -105,7 +104,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit, onSignUp: () -> Unit) {
 
 Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.logo_background),
+            painter = painterResource(id = R.drawable.logo_background1),
             contentDescription = "Login Background",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
@@ -119,7 +118,7 @@ Box(modifier = Modifier.fillMaxSize()) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = R.drawable.logo1),
+                painter = painterResource(id = R.drawable.logo),
                 contentDescription = "App Logo",
                 modifier = Modifier.size(80.dp),
                 colorFilter = ColorFilter.tint(Color.White)
@@ -237,7 +236,7 @@ Box(modifier = Modifier.fillMaxSize()) {
                     .fillMaxWidth()
                     .height(50.dp),
                 shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0073e6))
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3B3B3B))
             ) {
                 Text("Log In", fontSize = 20.sp, color = Color.White)
             }
