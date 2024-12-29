@@ -1,40 +1,67 @@
 package com.example.playbeat.ui.screens
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.playbeat.ui.navigation.MainNavHost
+import com.example.playbeat.ui.components.MiniPlayer
+
 import com.example.playbeat.ui.navigation.Destinations
+import com.example.playbeat.ui.navigation.MainNavHost
+import com.example.playbeat.viewmodel.MediaPlayerViewModel
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+
+    viewModel: MediaPlayerViewModel = hiltViewModel()
+) {
     val navController = rememberNavController()
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = currentBackStackEntry?.destination?.route
-
-    // List of screens that should show the bottom navigation bar
     val screensWithBottomNavBar = listOf(
         Destinations.HOME,
         Destinations.PROFILE,
+        Destinations.PLAYER
+    )
+    val screensWithMiniPlayer= listOf(
+        Destinations.HOME,
 
-        Destinations.REMINDERS,
-        Destinations.SETTINGS
+
     )
 
     Scaffold(
         bottomBar = {
-            if (currentRoute in screensWithBottomNavBar) {
-                BottomNavigationBar(navController = navController)
+            Column {
+                if(currentRoute in screensWithMiniPlayer){
+                    MiniPlayer(
+                        viewModel = viewModel,
+                        onPlayerClick = { navController.navigate(Destinations.PLAYER) }
+                    )
+                }
+
+                if (currentRoute in screensWithBottomNavBar) {
+                    BottomNavigationBar(navController = navController)
+                }
             }
         }
-    ) { innerPadding ->
-        MainNavHost(
-            navController = navController
-        )
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier.padding(paddingValues)
+        ) {
+            MainNavHost(
+                navController = navController as NavHostController,
+                viewModel = viewModel
+            )
+        }
     }
 }
+
+
+
+
+
